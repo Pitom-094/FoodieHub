@@ -1,0 +1,17 @@
+{
+    "name": "foodie-hub-root",
+    "private": true,
+    "scripts": {
+        "client": "npm run dev --prefix client",
+        "server": "cd server && nodemon index.js",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "install:client": "npm install --prefix client",
+        "install:server": "npm install --prefix server",
+        "setup": "npm install && npm run install:client && npm run install:server",
+        "seed": "cd server && node seeder.js"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1",
+        "nodemon": "^3.1.11"
+    }
+}

@@ -1,0 +1,2 @@
+# FoodieHub Frontend
+Project initialized.
