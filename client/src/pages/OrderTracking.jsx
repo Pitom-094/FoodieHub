@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { CheckCircle, Clock, Truck, MapPin, Package } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 import { useParams } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ const OrderTracking = () => {
             const { token } = JSON.parse(userInfo);
 
             try {
-                const response = await fetch(`/api/orders/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

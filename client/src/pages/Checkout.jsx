@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Banknote, Shield, CheckCircle, Lock, ArrowLeft } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 const Checkout = () => {
     const { cart, total } = useCart();
@@ -148,7 +149,7 @@ const Checkout = () => {
         };
 
         try {
-            const response = await fetch('/api/orders', {
+            const response = await fetch(`${API_BASE_URL}/api/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { Truck, MapPin, CheckCircle } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 const DeliveryDashboard = () => {
     const [orders, setOrders] = useState([]);
@@ -14,7 +15,7 @@ const DeliveryDashboard = () => {
             const { token } = JSON.parse(userInfo);
 
             try {
-                const res = await fetch('/api/orders/mydeliveries', {
+                const res = await fetch(`${API_BASE_URL}/api/orders/mydeliveries`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await res.json();

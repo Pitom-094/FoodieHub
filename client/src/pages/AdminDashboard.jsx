@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Users, Truck, CheckCircle } from 'lucide-react';
+import { API_BASE_URL } from '../utils/api';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('orders');
@@ -23,9 +24,9 @@ const AdminDashboard = () => {
 
             try {
                 const [ordersRes, foodsRes, deliveryRes] = await Promise.all([
-                    fetch('/api/orders', { headers: { 'Authorization': `Bearer ${token}` } }),
-                    fetch('/api/food'),
-                    fetch('/api/auth/delivery', { headers: { 'Authorization': `Bearer ${token}` } })
+                    fetch(`${API_BASE_URL}/api/orders`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch(`${API_BASE_URL}/api/food`),
+                    fetch(`${API_BASE_URL}/api/auth/delivery`, { headers: { 'Authorization': `Bearer ${token}` } })
                 ]);
 
                 const ordersData = await ordersRes.json();
@@ -50,7 +51,7 @@ const AdminDashboard = () => {
         const userInfo = localStorage.getItem('userInfo');
         const { token } = JSON.parse(userInfo);
         try {
-            const res = await fetch(`/api/orders/${orderId}/assign`, {
+            const res = await fetch(`${API_BASE_URL}/api/orders/${orderId}/assign`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ deliveryPersonId })
@@ -63,7 +64,7 @@ const AdminDashboard = () => {
         const userInfo = localStorage.getItem('userInfo');
         const { token } = JSON.parse(userInfo);
         try {
-            const res = await fetch(`/api/orders/${orderId}/status`, {
+            const res = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ status })
@@ -77,7 +78,7 @@ const AdminDashboard = () => {
         const userInfo = localStorage.getItem('userInfo');
         const { token } = JSON.parse(userInfo);
         try {
-            const res = await fetch(`/api/food/${id}`, {
+            const res = await fetch(`${API_BASE_URL}/api/food/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -96,7 +97,7 @@ const AdminDashboard = () => {
         let foodData = { ...newFood };
         if (!foodData.image || foodData.image.trim() === '') {
             try {
-                const imageRes = await fetch('/api/food/generate-image', {
+                const imageRes = await fetch(`${API_BASE_URL}/api/food/generate-image`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ foodName: newFood.name, category: newFood.category })
@@ -115,7 +116,7 @@ const AdminDashboard = () => {
         }
 
         try {
-            const res = await fetch('/api/food', {
+            const res = await fetch(`${API_BASE_URL}/api/food`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(foodData)
@@ -171,7 +172,7 @@ const AdminDashboard = () => {
                                                 <span className={`px-3 py-1 rounded-full text-xs font-bold ${order.status === 'Delivered' ? 'bg-emerald-100 text-emerald-700' :
                                                     order.status === 'Out for Delivery' ? 'bg-orange-100 text-orange-700' :
                                                         'bg-yellow-100 text-yellow-700'
-                                                    }`}>{order.status}</span>
+                                                    } `}>{order.status}</span>
                                             </td>
                                             <td className="px-6 py-4">
                                                 {order.status === 'Pending' ? (

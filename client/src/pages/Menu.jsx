@@ -5,6 +5,7 @@ import FoodCard from '../components/FoodCard';
 // import { foodData } from '../data/foodData';
 import { Search } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../utils/api';
 
 const categories = ["All", "Burger", "Pizza", "Asian", "Mexican", "Healthy", "Dessert"];
 
@@ -19,7 +20,7 @@ const Menu = () => {
     useEffect(() => {
         const fetchFoods = async () => {
             try {
-                const response = await fetch('/api/food');
+                const response = await fetch(`${API_BASE_URL}/api/food`);
                 const data = await response.json();
                 setFoods(data);
                 setLoading(false);

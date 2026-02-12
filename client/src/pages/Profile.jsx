@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { User, Package, Clock, MapPin, CheckCircle, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../utils/api';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Profile = () => {
 
         const fetchOrders = async () => {
             try {
-                const res = await fetch('/api/orders/myorders', {
+                const res = await fetch(`${API_BASE_URL}/api/orders/myorders`, {
                     headers: { 'Authorization': `Bearer ${parsedUser.token}` }
                 });
                 const data = await res.json();
